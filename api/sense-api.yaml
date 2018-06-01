@@ -1,0 +1,132 @@
+swagger: '2.0'
+info:
+  version: 0.1.0
+  title: Sense API
+  description: A course by Stefano Oldeman
+  contact:
+    name: Stefano Oldeman
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /ideas:
+    post:
+      parameters:
+        - in: body
+          name: idea
+          schema:
+            $ref: '#/definitions/BrainfartRequest'
+      responses:
+        '201':
+          description: Echo of the created resource
+          schema:
+            allOf:
+              - $ref: '#/definitions/BrainfartResponse'
+        '400':
+          description: Document Conflicted, Use PUT for idempotent operations
+          schema:
+            $ref: '#/definitions/Error'
+        '409':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+#    get:
+#      responses:
+#        '200':
+#          description: A paged array of the resource
+#          schema:
+#            allOf:
+#              - $ref: '#/definitions/BrainfartResponse'
+#        default:
+#          description: unexpected error
+#          schema:
+#            $ref: '#/definitions/Error'
+  '/ideas/{uuid}':
+    get:
+      parameters:
+        - in: path
+          name: uuid
+          type: string
+          required: true
+      responses:
+        '200':
+          description: A single resource
+          schema:
+            allOf:
+              - $ref: '#/definitions/BrainfartResponse'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      parameters:
+        - in: path
+          name: uuid
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Delete a single resource
+          schema:
+            properties:
+              uuid:
+                type: string
+            required:
+              - uuid
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  BrainfartRequest:
+    type: object
+    required:
+      - text
+    properties:
+      location_hint:
+        type: string
+      occured_at:
+        type: string
+      text:
+        type: string
+      tags:
+        type: string
+  BrainfartResponse:
+    type: object
+    required:
+      - created_at
+      - link
+      - uuid
+    properties:
+      created_at:
+        type: string
+      link:
+        type: string
+      uuid:
+        $ref: '#/definitions/uuid'
+  Error:
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+  jsonObject:
+    type: object
+    title: JSON Object
+    minProperties: 1
+    additionalProperties: true
+  uuid:
+    description: >-
+      Can be provided by client. If not present on creation a UUID is generated
+      on the server
+    type: string

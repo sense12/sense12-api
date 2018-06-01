@@ -11,5 +11,4 @@ class Ideas(Resource):
 
     def post(self):
         print(g.json)
-
         return {'created_at': 'something', 'link': 'something', 'uuid': 'something'}, 201, None

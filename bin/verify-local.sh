@@ -6,9 +6,13 @@ set -e
 
 source ./test-build/bin/activate
 
+VERSION=`cat ./VERSION`
+pip install dist/sense12-${VERSION}.tar.gz
+
+
 PORT=1081
 # START THE SERVER
-sense12 --port ${PORT} &
+sense12 start-server --port ${PORT} &
 PID=$!
 echo $PID
 # WAIT for 3 seconds

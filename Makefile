@@ -6,12 +6,9 @@ dist:
 	python setup.py sdist
 
 .PHONY: verify-build
-verify-build: # install-build
+verify-build:
+	# python3 -m venv ./test-build
 	./bin/verify-local.sh
-
-.PHONY: install-build
-install-build:
-	./bin/install-dist.sh
 
 .PHONY: release
 release: clean

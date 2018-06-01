@@ -44,4 +44,6 @@ The code for a twelve-factor app makes no distinction between local and third pa
 
 The twelve-factor app uses strict separation between the build, release, and run stages. For example, it is impossible to make changes to the code at runtime, since there is no way to propagate those changes back to the build stage.
 
-# 6.
+# 6. Processes
+
+Twelve-factor processes are stateless and share-nothing.

@@ -14,10 +14,11 @@ import six
 base_path = '/v1'
 
 
-DefinitionsError = {'type': 'object', 'required': ['code', 'message'], 'properties': {'code': {'type': 'integer', 'format': 'int32'}, 'message': {'type': 'string'}}}
-DefinitionsUuid = {'description': 'Can be provided by client. If not present on creation a UUID is generated on the server', 'type': 'string'}
 DefinitionsJsonobject = {'type': 'object', 'title': 'JSON Object', 'minProperties': 1, 'additionalProperties': True}
+DefinitionsHealthresponse = {'type': 'object', 'required': ['message'], 'properties': {'message': {'type': 'string'}}}
 DefinitionsBrainfartrequest = {'type': 'object', 'required': ['text'], 'properties': {'location_hint': {'type': 'string'}, 'occured_at': {'type': 'string'}, 'text': {'type': 'string'}, 'tags': {'type': 'string'}}}
+DefinitionsUuid = {'description': 'Can be provided by client. If not present on creation a UUID is generated on the server', 'type': 'string'}
+DefinitionsError = {'type': 'object', 'required': ['code', 'message'], 'properties': {'code': {'type': 'integer', 'format': 'int32'}, 'message': {'type': 'string'}}}
 DefinitionsBrainfartresponse = {'type': 'object', 'required': ['created_at', 'link', 'uuid'], 'properties': {'created_at': {'type': 'string'}, 'link': {'type': 'string'}, 'uuid': {'description': 'Can be provided by client. If not present on creation a UUID is generated on the server', 'type': 'string'}}}
 
 validators = {

@@ -8,11 +8,13 @@
 ###
 from __future__ import absolute_import
 
+from .api.health import Health
 from .api.ideas import Ideas
 from .api.ideas_uuid import IdeasUuid
 
 
 routes = [
+    dict(resource=Health, urls=['/health'], endpoint='health'),
     dict(resource=Ideas, urls=['/ideas'], endpoint='ideas'),
     dict(resource=IdeasUuid, urls=['/ideas/<uuid>'], endpoint='ideas_uuid'),
 ]

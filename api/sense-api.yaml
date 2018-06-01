@@ -10,6 +10,12 @@ consumes:
 produces:
   - application/json
 paths:
+  /health:
+    get:
+      response:
+        default: I am healthy
+        schema:
+          $ref: '#/definitions/HealthResponse'
   /ideas:
     post:
       parameters:
@@ -109,6 +115,13 @@ definitions:
         type: string
       uuid:
         $ref: '#/definitions/uuid'
+  HealthResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
   Error:
     type: object
     required:

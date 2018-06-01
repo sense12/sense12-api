@@ -35,3 +35,8 @@ The twelve-factor app stores config in environment variables (env vars in short)
 My summary:
 If a value can be a constant, but varies substantially across deploys, it is a config value. This should be stored in the environment.
 
+
+# 4. Backing Services
+
+The code for a twelve-factor app makes no distinction between local and third party services. To the app, both are attached resources, accessed via a URL or other locator/credentials stored in the config. A deploy of the twelve-factor app should be able to swap out a local MySQL database with one managed by a third party (such as Amazon RDS) without any changes to the app’s code.
+

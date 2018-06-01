@@ -15,6 +15,10 @@ setup(
     # },
     install_requires=[
         'requests==2.18.4',
+        'Flask',
+        'Jinja2',
+        'Flask-RESTful',
         'jsonschema',
+        'six'
     ]
 )

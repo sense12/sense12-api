@@ -1,0 +1,78 @@
+#!/usr/bin/env python
+
+import argparse
+import sys
+import os
+import semver # pip install semver
+
+FILENAME = 'VERSION'
+
+def bump(config):
+    prefix = config.get('prefix') or '.'
+    fpath = os.path.join(prefix, FILENAME)
+    version = current_version(fpath)
+    if version == None:
+        print("Did not detect current version, initializing")
+        new = '0.1.0'
+    else:
+        new = bump_version(version, config['increment'])
+    write_version(fpath, new)
+
+
+def current_version(fpath):
+    version = None
+    try:
+        with open(fpath, 'r') as f:
+            version = f.read()
+    except FileNotFoundError:
+        pass
+
+    return version
+
+
+def write_version(fpath, new):
+    print("Writing {} to {}".format(new, fpath))
+    with open(fpath, 'w') as f:
+        f.write(new)
+
+
+def bump_version(version, increment):
+    if increment == 'mayor':
+        new = semver.bump_major(version)
+    elif increment == 'minor':
+        new = semver.bump_minor(version)
+    elif increment == 'patch':
+        new = semver.bump_patch(version)
+    else:
+        print('ERROR: Bad increment type. Valid input values are: mayor,minor or patch')
+        sys.exit(1)
+    return new
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description='Versions.py a python versions make tools')
+    subparsers = parser.add_subparsers(dest="command")
+    parser.add_argument('--prefix', dest='prefix', required=False, type=str,
+                      help='Optional directory prefix to where file with version is kept')
+
+    # echo = subparsers.add_parser('echo', help='run simulator for dataflow')
+    # echo.set_defaults(func=echo_version)
+
+    cmd = subparsers.add_parser('bump', help='run sanity test for dataflow')
+    cmd.set_defaults(func=bump)
+    cmd.add_argument('--increment', required=True, type=str, choices=['mayor', 'minor', 'patch'],
+                      help='Increment of a version following the semver.org spec')
+    args_config = parser.parse_args()
+    if args_config.command is None:
+        parser.print_help()
+        parser.error('not a valid semver command')
+    return args_config
+
+
+def main():
+    args_config = parse_args()
+    args_config.func(args_config.__dict__)
+
+
+if __name__ == "__main__":
+    main()

@@ -2,9 +2,13 @@ from setuptools import setup, find_packages
 
 import unittest
 
+def read_version():
+    with open('VERSION', 'r') as f:
+        return f.read()
+
 setup(
     name="sense12",
-    version='0.1.0',
+    version=read_version(),
     packages=find_packages(),
     python_requires='>=3',
     description="This is an Example Package Sense12, Course material by Stefano Oldeman.",

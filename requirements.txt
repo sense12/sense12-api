@@ -1,2 +1,2 @@
 swagger-py-codegen==0.3.1
-
+semver==2.8.0

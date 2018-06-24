@@ -1,6 +1,5 @@
 
-VERSION=$(shell cat ./VERSION)
-
+.PHONY: build
 build: clean venv codegen
 	python setup.py sdist
 
@@ -31,6 +30,3 @@ codegen:
 swagger_host: # this relies on npm http-server
 	http-server --cors -p 8089 openapi
 
-# should not be run from inside Docker
-sense12-python-builder:
-	docker build -t sense12/python-builder:latest .

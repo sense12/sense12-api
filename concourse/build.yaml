@@ -3,21 +3,25 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: sense12/python-builder}
+  source: {repository: sense12/python-builder, tag: 0.1.0-alpha1 }
 
-outputs:
-- name: python-dist
+inputs:
+- name: orchastrator
+- name: sense12-api
+
+# outputs:
+# - name: python-dist
 
 run:
   path: sh
   args:
   - -exc
   - |
-    cd /build
+    alias gmake="make -f /files/Makefile"
+    cp sense12-api/* .
+    gmake venv dist
     ls -l
-    make build
-    make verify-build
     ls -la dist
-    cd -
-    mv /build/dist/*.tar.gz python-dist/release.tar.gz
-    ls -la python-dist
+    make verify-build
+    # mv ./dist/*.tar.gz python-dist/release.tar.gz
+    # ls -la python-dist

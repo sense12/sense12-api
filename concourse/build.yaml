@@ -17,11 +17,13 @@ run:
   args:
   - -exc
   - |
-    alias gmake="make -f /files/Makefile"
-    cp sense12-api/* .
-    gmake venv dist
+    pwd
+    whoami
+    ls -la
+    mv sense12-api/* .
+    make build
     ls -l
     ls -la dist
     make verify-build
-    # mv ./dist/*.tar.gz python-dist/release.tar.gz
-    # ls -la python-dist
+# mv ./dist/*.tar.gz python-dist/release.tar.gz
+# ls -la python-dist

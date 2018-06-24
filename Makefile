@@ -1,13 +1,12 @@
 
 VERSION=$(shell cat ./VERSION)
 
-.PHONY: package
-dist:
+build: clean venv codegen
 	python setup.py sdist
 
 .PHONY: verify-build
 verify-build:
-	# python3 -m venv ./test-build
+	python3 -m venv ./test-build
 	./bin/verify-local.sh
 
 .PHONY: release
@@ -20,8 +19,9 @@ clean:
 	rm -rf dist/
 
 .PHONY: dev
-dev:
+venv:
 	python3 -m venv ./venv
+	pip install -r requirements.txt
 
 .PHONY: codegen
 codegen:
@@ -30,3 +30,7 @@ codegen:
 .PHONY: swagger_host
 swagger_host: # this relies on npm http-server
 	http-server --cors -p 8089 openapi
+
+# should not be run from inside Docker
+sense12-python-builder:
+	docker build -t sense12/python-builder:latest .

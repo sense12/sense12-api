@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # ps aux | grep sense | tail -1 | awk '{ print $2 }' | xargs kill
 

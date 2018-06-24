@@ -1,0 +1,8 @@
+*git*
+venv
+test-build
+dist
+*.egg-info
+Dockerfile
+README.md
+MANIFESTO.md

@@ -9,8 +9,8 @@ https://www.python.org/dev/peps/pep-0008/#package-and-module-names
 
 
 # Dependencies
-1. Vendoring with setup.py see `make release`
-2. Isolation of environment, see `make dev`. And use `source ./venv/bin/activate`
+1. Vendoring with setup.py see `make build`
+2. Isolation of environment, see `make venv`. And use `source ./venv/bin/activate`
 
 # Config
 

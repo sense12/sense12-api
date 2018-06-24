@@ -20,4 +20,4 @@ run:
     ls -la dist
     cd -
     mv /build/dist/*.tar.gz python-dist/release.tar.gz
-    ls -la python-build
+    ls -la python-dist

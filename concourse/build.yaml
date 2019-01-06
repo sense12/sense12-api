@@ -17,13 +17,15 @@ run:
   args:
   - -exc
   - |
+    cd sense12-api
     pwd
     whoami
     ls -la
-    mv sense12-api/* .
     make build
     ls -l
     ls -la dist
+    # make verify build seperate task
+    # https://concoursetutorial.com/basics/task-outputs-to-inputs/
     make verify-build
 # mv ./dist/*.tar.gz python-dist/release.tar.gz
 # ls -la python-dist

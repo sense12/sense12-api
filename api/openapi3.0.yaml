@@ -1,0 +1,120 @@
+openapi: "3.0.2"
+info:
+  version: 0.1.0
+  title: Sense API
+  description: A course by Stefano Oldeman
+  contact:
+    name: Stefano Oldeman
+servers:
+  - url: "http://api.sense12/v1"
+paths:
+  /health:
+    get:
+      responses:
+        200:
+          description: I am healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /ideas:
+    post:
+      responses:
+        201:
+          description: Echo of the created resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdeasResponse'
+        400:
+          description: Document Conflicted, Use PUT for idempotent operations
+        409:
+          description: unexpected error
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/ideas/{uuid}':
+    parameters:
+      - $ref: '#/components/parameters/uuid'
+    get:
+      responses:
+        200:
+          description: A single resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdeasResponse'
+    delete:
+      responses:
+        200:
+          description: Delete a single resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Uuid'
+components:
+  parameters:
+    uuid:
+      in: path
+      name: uuid
+      required: true
+      schema:
+        $ref: '#/components/schemas/Uuid'
+  schemas:
+    BrainfartRequest:
+      type: object
+      required:
+        - text
+      properties:
+        location_hint:
+          type: string
+        occured_at:
+          type: string
+        text:
+          type: string
+        tags:
+          type: string
+    IdeasResponse:
+      type: object
+      required:
+        - created_at
+        - link
+        - uuid
+      properties:
+        created_at:
+          type: string
+        link:
+          type: string
+        uuid:
+          $ref: '#/components/schemas/Uuid'
+    HealthResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    jsonObject:
+      type: object
+      title: JSON Object
+      minProperties: 1
+      additionalProperties: true
+    Uuid:
+      description: >-
+        Can be provided by client. If not present on creation a UUID is generated
+        on the server
+      type: string

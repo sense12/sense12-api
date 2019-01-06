@@ -16,7 +16,7 @@ setup(
         ]
     },
     install_requires=[
-        'requests==2.18.4',
+        'requests',
         'Flask',
         'Jinja2',
         'Flask-RESTful',

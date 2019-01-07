@@ -21,8 +21,8 @@ clean:
 venv:
 	python3 -m venv ./venv
 	pip install -r requirements.txt
-	pip uninstall click
-	pip install flex
+	pip uninstall --yes click
+	pip install --yes flex
 
 
 .PHONY: swagger_host
